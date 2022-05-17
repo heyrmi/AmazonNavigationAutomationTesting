@@ -1,27 +1,28 @@
 package org.example;
 
+import com.epam.healenium.SelfHealingDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.JavascriptExecutor;
-
-import java.util.ArrayList;
-
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 public class AppTest {
-    private String websiteURL = "https://www.amazon.in/";
+    private final String websiteURL = "https://www.amazon.in/";
     private WebDriver driver = null;
 
     @BeforeTest
-    public void runBeforeSuite() {
+    public void runBeforeTest() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        // declare delegate
+        WebDriver delegate = new ChromeDriver();
+        // create Self-healing driver
+        SelfHealingDriver driver = SelfHealingDriver.create(delegate);
         driver.manage().window().maximize();
         driver.get(websiteURL);
 
@@ -29,6 +30,7 @@ public class AppTest {
 
     @Test
     public void amazonTest() throws InterruptedException {
+
         driver.findElement(By.id("twotabsearchtextbox")).sendKeys("IPhone13");
         driver.findElement(By.xpath("//input[@id='nav-search-submit-button']")).click();
 
@@ -43,7 +45,7 @@ public class AppTest {
         Thread.sleep(2000);
         driver.findElement(By.id("add-to-cart-button")).click();
 
-        // Procees to checkout
+        // Proceed to check out
         Thread.sleep(2000);
         driver.findElement(By.name("proceedToRetailCheckout")).click();
 
@@ -58,7 +60,7 @@ public class AppTest {
 
     @AfterTest
     public void runAfterTest() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         driver.quit();
     }
 
