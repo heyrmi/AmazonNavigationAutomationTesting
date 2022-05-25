@@ -30,7 +30,6 @@ public class AppTest {
 
     @Test
     public void amazonTest() throws InterruptedException {
-
         driver.findElement(By.id("twotabsearchtextbox")).sendKeys("IPhone13");
         driver.findElement(By.xpath("//input[@id='nav-search-submit-button']")).click();
 
@@ -45,7 +44,7 @@ public class AppTest {
         Thread.sleep(2000);
         driver.findElement(By.id("add-to-cart-button")).click();
 
-        // Proceed to check out
+        // Procees to checkout
         Thread.sleep(2000);
         driver.findElement(By.name("proceedToRetailCheckout")).click();
 
