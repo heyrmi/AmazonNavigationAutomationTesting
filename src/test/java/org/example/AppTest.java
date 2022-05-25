@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class AppTest {
     private final String websiteURL = "https://www.amazon.in/";
-    private WebDriver driver = null;
+    private SelfHealingDriver driver = null;
 
     @BeforeTest
     public void runBeforeTest() {
@@ -22,7 +22,7 @@ public class AppTest {
         // declare delegate
         WebDriver delegate = new ChromeDriver();
         // create Self-healing driver
-        SelfHealingDriver driver = SelfHealingDriver.create(delegate);
+        driver = SelfHealingDriver.create(delegate);
         driver.manage().window().maximize();
         driver.get(websiteURL);
 
